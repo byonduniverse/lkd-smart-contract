@@ -14,6 +14,7 @@ contract PoolBidToken is MintableToken {
         uint256 tokensBid;
         uint256 limitCHF;
         string diamondType;
+        uint256 ethToBeClaimed;
     }
 
     struct Order {
