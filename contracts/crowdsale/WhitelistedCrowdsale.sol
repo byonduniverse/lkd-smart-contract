@@ -1,7 +1,7 @@
 pragma solidity ^0.4.21;
 
-import "../../node_modules/openzeppelin-solidity/contracts/crowdsale/Crowdsale.sol";
-import "../../node_modules/openzeppelin-solidity/contracts/ownership/Ownable.sol";
+import "openzeppelin-solidity/contracts/crowdsale/Crowdsale.sol";
+import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 
 
 /**
