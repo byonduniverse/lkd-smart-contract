@@ -26,4 +26,16 @@ contract PoolBidToken is MintableToken {
         bool status;
     }
 
+    function createOrder(uint256 _tokensNeeded, uint256 _priceCHF, string _diamondType, string _metadata) {
+        Order memory order = Order(
+            _tokensNeeded,
+            _priceCHF,
+            _diamondType,
+            _metadata,
+            now + 1 days,
+            false
+        );
+        orders.push(order);
+    }
+
 }
