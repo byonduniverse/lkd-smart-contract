@@ -35,4 +35,10 @@ contract LakeDiamondCrowdsale is WhitelistedCrowdsale, RefundableCrowdsale, Capp
         return contributions[_beneficiary];
     }
 
+    function getCurrentCap() internal view returns (uint256) {
+        // Get day count, starting indexing from 1.
+        uint diff = (now - openingTime)/86400;
+        diff += 1;
+        return (cap/whitelistLength)*diff;
+    }
 }
