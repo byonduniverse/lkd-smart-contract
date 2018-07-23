@@ -9,6 +9,7 @@ import "./WhitelistedCrowdsale.sol";
 
 contract LakeDiamondCrowdsale is WhitelistedCrowdsale, RefundableCrowdsale, CappedCrowdsale, MintedCrowdsale {
 
+    mapping(address => uint256) public contributions;
 
     constructor(
         uint256 _openingTime,
