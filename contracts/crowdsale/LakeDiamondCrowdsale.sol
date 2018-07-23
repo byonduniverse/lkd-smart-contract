@@ -30,4 +30,9 @@ contract LakeDiamondCrowdsale is WhitelistedCrowdsale, RefundableCrowdsale, Capp
         //the value needs to less or equal than a cap which is limit for accepted funds
         require(_goal <= _cap);
     }
+
+    function getUserContribution(address _beneficiary) public view returns (uint256) {
+        return contributions[_beneficiary];
+    }
+
 }
