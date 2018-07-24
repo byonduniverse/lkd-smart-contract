@@ -20,6 +20,13 @@ contract PoolBidToken is MintableToken {
         string diamondType
     );
 
+    event WithdrawBid(
+        uint256 id,
+        address investor,
+        uint256 tokensBid,
+        string diamondType
+    );
+
     mapping(address => bool) public whitelist;
     mapping(bytes32 => uint8) public levelKYC;
     Bid[] public bids;
@@ -82,6 +89,7 @@ contract PoolBidToken is MintableToken {
         totalSupply_ = totalSupply_.add(bids[_bidId].tokensBid);
 
         delete bids[_bidId];
+        emit WithdrawBid(bids.length, msg.sender, bids[_bidId].tokensBid, bids[_bidId].diamondType);
     }
 
 }
