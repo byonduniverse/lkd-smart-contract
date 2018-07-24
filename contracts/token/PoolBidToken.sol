@@ -74,4 +74,14 @@ contract PoolBidToken is MintableToken {
         emit CreateBid(bids.length, msg.sender, _tokenAmount, _limitCHF, _diamondType);
     }
 
+    function withdrawBid(uint256 _bidId) public {
+        require(_bidId <= bids.length);
+        require(bids[_bidId].investor == msg.sender);
+
+        balances[msg.sender] = balances[msg.sender].add(bids[_bidId].tokensBid);
+        totalSupply_ = totalSupply_.add(bids[_bidId].tokensBid);
+
+        delete bids[_bidId];
+    }
+
 }
