@@ -34,6 +34,11 @@ contract PoolBidToken is MintableToken {
         bool status;
     }
 
+    modifier isWhitelisted() {
+        require(whitelist[msg.sender] == true);
+        _;
+    }
+
     function createOrder(uint256 _tokensNeeded, uint256 _priceCHF, string _diamondType, string _metadata) public {
         uint timestamp = now + 1 days;
         Order memory order = Order(
