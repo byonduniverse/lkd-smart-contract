@@ -53,4 +53,16 @@ contract PoolBidToken is MintableToken {
         emit OrderCreated(orders.length, _tokensNeeded, _priceCHF, _diamondType, _metadata, timestamp);
     }
 
+    function createBid(uint256 _tokenAmount, uint256 _limitCHF, string _diamondType) public isWhitelisted {
+        require(balances[msg.sender] >= _tokenAmount);
+
+        // Update smart contract state.
+        balances[msg.sender] = balances[msg.sender].sub(_tokenAmount);
+        totalSupply_ = totalSupply_.sub(_tokenAmount);
+
+        //Update bidQueue state.
+        Bid memory newBid = Bid(msg.sender, _tokenAmount, _limitCHF, _diamondType, 0);
+        bids.push(newBid);
+    }
+
 }
