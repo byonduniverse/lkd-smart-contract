@@ -12,6 +12,14 @@ contract PoolBidToken is MintableToken {
         uint expirationDate
     );
 
+    event CreateBid(
+        uint256 id,
+        address investor,
+        uint256 tokensBid,
+        uint256 limitCHF,
+        string diamondType
+    );
+
     mapping(address => bool) public whitelist;
     mapping(bytes32 => uint8) public levelKYC;
     Bid[] public bids;
@@ -63,6 +71,7 @@ contract PoolBidToken is MintableToken {
         //Update bidQueue state.
         Bid memory newBid = Bid(msg.sender, _tokenAmount, _limitCHF, _diamondType, 0);
         bids.push(newBid);
+        emit CreateBid(bids.length, msg.sender, _tokenAmount, _limitCHF, _diamondType);
     }
 
 }
