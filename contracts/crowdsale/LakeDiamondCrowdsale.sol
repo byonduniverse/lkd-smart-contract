@@ -9,6 +9,7 @@ import "./WhitelistedCrowdsale.sol";
 
 contract LakeDiamondCrowdsale is WhitelistedCrowdsale, RefundableCrowdsale, CappedCrowdsale, MintedCrowdsale {
 
+    mapping(address => uint256) public contributions;
 
     constructor(
         uint256 _openingTime,
@@ -28,5 +29,22 @@ contract LakeDiamondCrowdsale is WhitelistedCrowdsale, RefundableCrowdsale, Capp
         //As goal needs to be met for a successful crowdsale
         //the value needs to less or equal than a cap which is limit for accepted funds
         require(_goal <= _cap);
+    }
+
+    function getUserContribution(address _beneficiary) public view returns (uint256) {
+        return contributions[_beneficiary];
+    }
+
+    function _preValidatePurchase(address _beneficiary, uint256 _weiAmount) internal {
+        super._preValidatePurchase(_beneficiary, _weiAmount);
+        contributions[_beneficiary].add(_weiAmount);
+        require(contributions[_beneficiary] <= getCurrentCap());
+    }
+
+    function getCurrentCap() internal view returns (uint256) {
+        // Get day count, starting indexing from 1.
+        uint diff = (now - openingTime)/86400;
+        diff += 1;
+        return (cap/whitelistLength)*diff;
     }
 }

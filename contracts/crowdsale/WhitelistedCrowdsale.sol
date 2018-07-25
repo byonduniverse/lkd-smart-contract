@@ -11,6 +11,7 @@ import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 contract WhitelistedCrowdsale is Crowdsale, Ownable {
 
     mapping(address => bool) public whitelist;
+    uint256 public whitelistLength;
 
   /**
    * @dev Reverts if beneficiary is not whitelisted. Can be used when extending this contract.
@@ -26,6 +27,7 @@ contract WhitelistedCrowdsale is Crowdsale, Ownable {
      */
     function addToWhitelist(address _beneficiary) external onlyOwner {
         whitelist[_beneficiary] = true;
+        whitelistLength = whitelistLength.add(1);
     }
 
     /**
@@ -36,6 +38,7 @@ contract WhitelistedCrowdsale is Crowdsale, Ownable {
         for (uint256 i = 0; i < _beneficiaries.length; i++) {
             whitelist[_beneficiaries[i]] = true;
         }
+        whitelistLength = whitelistLength.add(_beneficiaries.length);
     }
 
     /**
@@ -44,6 +47,7 @@ contract WhitelistedCrowdsale is Crowdsale, Ownable {
      */
     function removeFromWhitelist(address _beneficiary) external onlyOwner {
         whitelist[_beneficiary] = false;
+        whitelistLength = whitelistLength.sub(1);
     }
 
     /**
