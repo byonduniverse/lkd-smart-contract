@@ -12,6 +12,21 @@ contract PoolBidToken is MintableToken {
         uint expirationDate
     );
 
+    event CreateBid(
+        uint256 id,
+        address investor,
+        uint256 tokensBid,
+        uint256 limitCHF,
+        string diamondType
+    );
+
+    event WithdrawBid(
+        uint256 id,
+        address investor,
+        uint256 tokensBid,
+        string diamondType
+    );
+
     mapping(address => bool) public whitelist;
     mapping(bytes32 => uint8) public levelKYC;
     Bid[] public bids;
@@ -51,6 +66,30 @@ contract PoolBidToken is MintableToken {
         );
         orders.push(order);
         emit OrderCreated(orders.length, _tokensNeeded, _priceCHF, _diamondType, _metadata, timestamp);
+    }
+
+    function createBid(uint256 _tokenAmount, uint256 _limitCHF, string _diamondType) public isWhitelisted {
+        require(balances[msg.sender] >= _tokenAmount);
+
+        // Update smart contract state.
+        balances[msg.sender] = balances[msg.sender].sub(_tokenAmount);
+        totalSupply_ = totalSupply_.sub(_tokenAmount);
+
+        //Update bidQueue state.
+        Bid memory newBid = Bid(msg.sender, _tokenAmount, _limitCHF, _diamondType, 0);
+        bids.push(newBid);
+        emit CreateBid(bids.length, msg.sender, _tokenAmount, _limitCHF, _diamondType);
+    }
+
+    function withdrawBid(uint256 _bidId) public {
+        require(_bidId <= bids.length);
+        require(bids[_bidId].investor == msg.sender);
+
+        balances[msg.sender] = balances[msg.sender].add(bids[_bidId].tokensBid);
+        totalSupply_ = totalSupply_.add(bids[_bidId].tokensBid);
+
+        delete bids[_bidId];
+        emit WithdrawBid(bids.length, msg.sender, bids[_bidId].tokensBid, bids[_bidId].diamondType);
     }
 
 }
