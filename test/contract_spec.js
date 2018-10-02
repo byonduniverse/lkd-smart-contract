@@ -1,25 +1,21 @@
 // /*global contract, config, it, assert*/
-/*const SimpleStorage = require('Embark/contracts/SimpleStorage');
+const LKDToken = embark.require('Embark/contracts/LKDToken');
+const secrets = require('./../env.json'); // should NOT be in source control
 
 config({
   contracts: {
-    "SimpleStorage": {
-      args: [100]
+    "LKDToken": {
+      "file": "./contracts/LKD.sol",
+      "onDeploy": ["LKDToken.methods.transfer('"+secrets.dev.address+"', \"141120000\").send()"]
     }
   }
 });
 
-contract("SimpleStorage", function () {
+contract("LKDToken", function () {
   this.timeout(0);
 
-  it("should set constructor value", async function () {
-    let result = await SimpleStorage.methods.storedData().call();
-    assert.strictEqual(parseInt(result, 10), 100);
+  it("should send 141120000 tokens to defined dev address " + secrets.dev.address, async function () {
+    let result = await LKDToken.methods.balanceOf(secrets.dev.address).call();
+    assert.strictEqual(parseInt(result, 10), 141120000);
   });
-
-  it("set storage value", async function () {
-    await SimpleStorage.methods.set(150).send();
-    let result = await SimpleStorage.methods.get().call();
-    assert.strictEqual(parseInt(result, 10), 150);
-  });
-});*/
+});

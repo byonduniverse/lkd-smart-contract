@@ -53,5 +53,18 @@ module.exports = {
       protocol: 'https',
       type: "rpc"
     }
+  },
+  mainnet: {
+    deployment:{
+      accounts: [
+        {
+         privateKey: secrets.mainnet.key
+        }
+      ],
+      host: "mainnet.infura.io/v3/d8094160bace450f8d23a11bf300a7dd",
+      port: false,
+      protocol: 'https',
+      type: "rpc"
+    }
   }
 };
