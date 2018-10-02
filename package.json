@@ -1,5 +1,15 @@
 {
+  "name": "lkd",
+  "version": "0.0.1",
+  "description": "",
+  "scripts": {
+    "test": "embark test"
+  },
+  "author": "",
+  "license": "ISC",
+  "homepage": "",
+  "devDependencies": {},
   "dependencies": {
-    "openzeppelin-solidity": "^1.11.0"
+    "openzeppelin-solidity": "^2.0.0-rc.2"
   }
 }
