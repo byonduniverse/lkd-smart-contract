@@ -37,7 +37,7 @@ module.exports = {
       // example:
       LKDToken: {
         "file": "./contracts/LKD.sol",
-        "onDeploy": ["LKDToken.methods.transfer('"+secrets.dev.address+"', \"141120000\").send()"]
+        "onDeploy": ["LKDToken.methods.transfer('"+secrets.dev.address+"', \"141120000\").send({gas: 400000})"]
       }
     }
   },
