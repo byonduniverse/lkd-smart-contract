@@ -10,7 +10,7 @@ Then:
 
 - install Embark: `npm install -g embark`
 - install [IPFS](https://bitfalls.com/epb2)
-- install [Geth](https://bitfalls.com/exeg) but don't run it.
+- install [Geth](https://bitfalls.com/exeg) (no need to be synchronized)
 	- For Mac: `brew install ethereum` & `brew install ethereum` 
 - clone this repo: `git clone https://gitlab.com/lakediamond/lkd-smartcontract`
 - `cd lkd-smartcontract && npm install`
