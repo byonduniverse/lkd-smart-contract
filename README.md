@@ -10,9 +10,10 @@ Then:
 
 - install Embark: `npm install -g embark`
 - install [IPFS](https://bitfalls.com/epb2)
-- install [Geth](https://bitfalls.com/exeg)
-- clone this repo: `git clone https://gitlab.com/lakediamond/sc`
-- `cd sc && npm install`
+- install [Geth](https://bitfalls.com/exeg) but don't run it.
+	- For Mac: `brew install ethereum` & `brew install ethereum` 
+- clone this repo: `git clone https://gitlab.com/lakediamond/lkd-smartcontract`
+- `cd lkd-smartcontract && npm install`
 
 Generate a new address with [MEW](https://bitfalls.com/2018/02/19/first-ethereum-address-learning-use-myetherwallet/) or [MetaMask](https://bitfalls.com/2018/02/16/metamask-send-receive-ether/) and then export the private key.
 
